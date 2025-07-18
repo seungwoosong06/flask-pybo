@@ -2,11 +2,9 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-from flaskext.markdown import Markdown
-from flaskext.markdown import Markdown
+from markdown import markdown
 
 
-import config
 
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -18,13 +16,9 @@ naming_convention = {
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate()
 
-
-
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(config)
-
-
+    app.config.from_envvar('APP_CONFIG_FILE')
 
     # ORM
     db.init_app(app)
@@ -40,10 +34,10 @@ def create_app():
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
     app.register_blueprint(auth_views.bp)
+
     # 필터
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
-    # markdown
-    Markdown(app, extensions=['nl2br', 'fenced_code'])
+    app.jinja_env.filters['markdown'] = markdown  # ✅ 마크다운 필터 추가
 
-    return app
+    return app  # ✅ 딱 한 번만 존재
