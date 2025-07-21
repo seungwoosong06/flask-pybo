@@ -1,8 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from markdown import markdown
+from markupsafe import Markup
+
 
 
 
@@ -16,7 +18,11 @@ naming_convention = {
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate()
 
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 def create_app():
+
     app = Flask(__name__)
     app.config.from_envvar('APP_CONFIG_FILE')
 
@@ -27,6 +33,8 @@ def create_app():
     else:
         migrate.init_app(app, db)
     from . import models
+    # 오류페이지
+    app.register_error_handler(404, page_not_found)
 
     # 블루프린트
     from .views import main_views, question_views, answer_views, auth_views
@@ -38,6 +46,12 @@ def create_app():
     # 필터
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
-    app.jinja_env.filters['markdown'] = markdown  # ✅ 마크다운 필터 추가
 
-    return app  # ✅ 딱 한 번만 존재
+    def markdown_filter(text):
+        print(f"markdown_filter 호출됨, text: {text[:30]}...")
+        html = markdown(text, extensions=['fenced_code', 'codehilite'])
+        return Markup(html)
+
+    app.jinja_env.filters['markdown'] = markdown_filter
+
+    return app
