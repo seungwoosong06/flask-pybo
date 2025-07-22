@@ -1,17 +1,31 @@
-<!-- 답변 수정 -->
+<!-- answer_form.html -->
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h5 class="my-3 border-bottom pb-2">답변 수정</h5>
+    <h5 class="my-3 border-bottom pb-2">
+        {% if form.content.data %}답변 수정{% else %}답변 등록{% endif %}
+    </h5>
     <form method="post">
         {{ form.csrf_token }}
-        {% include "form_errors.html" %}
-        <div class="mb-3">
-            <label for="content">답변내용</label>
-            <textarea class="form-control" name="content" id="content"
-                      rows="10">{{ form.content.data or '' }}</textarea>
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {% for field, errors in form.errors.items() %}
+                <strong>{{ form[field].label }}</strong>
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
         </div>
-        <button type="submit" class="btn btn-primary">저장하기</button>
+        {% endif %}
+        <div class="mb-3">
+            <label for="content">내용</label>
+            <textarea class="form-control" name="content" id="content" rows="10">{{ form.content.data or '' }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            {% if form.content.data %}저장하기{% else %}등록하기{% endif %}
+        </button>
     </form>
 </div>
 {% endblock %}

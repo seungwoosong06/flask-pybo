@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from markdown import markdown
+from flaskext.markdown import Markdown
 from markupsafe import Markup
 
 
@@ -48,7 +49,6 @@ def create_app():
     app.jinja_env.filters['datetime'] = format_datetime
 
     def markdown_filter(text):
-        print(f"markdown_filter 호출됨, text: {text[:30]}...")
         html = markdown(text, extensions=['fenced_code', 'codehilite'])
         return Markup(html)
 

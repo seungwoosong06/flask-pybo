@@ -1,0 +1,14 @@
+[2025-07-22 12:02:35,403] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2025-07-22 12:02:35,403] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-07-22 12:02:35,405] INFO in _internal:  * Restarting with stat
+[2025-07-22 12:02:36,343] WARNING in _internal:  * Debugger is active!
+[2025-07-22 12:02:36,346] INFO in _internal:  * Debugger PIN: 138-939-411
+[2025-07-22 12:03:56,362] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.215:5000
+[2025-07-22 12:03:56,364] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-07-22 12:03:56,370] INFO in _internal:  * Restarting with stat
+[2025-07-22 12:03:57,380] WARNING in _internal:  * Debugger is active!
+[2025-07-22 12:03:57,383] INFO in _internal:  * Debugger PIN: 138-939-411

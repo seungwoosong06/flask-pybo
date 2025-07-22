@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- 질문 등록 -->
 <div class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
     <form method="post" class="my-3">
         {{ form.csrf_token }}
-        <!-- 오류표시 Start -->
         {% if form.errors %}
         <div class="alert alert-danger" role="alert">
             {% for field, errors in form.errors.items() %}
@@ -18,8 +16,6 @@
             {% endfor %}
         </div>
         {% endif %}
-        <!-- 오류표시 End -->
-
         <div class="mb-3">
             <label for="subject">제목</label>
             <input type="text" class="form-control" name="subject" id="subject" value="{{ form.subject.data or '' }}">
@@ -31,4 +27,19 @@
         <button type="submit" class="btn btn-primary">저장하기</button>
     </form>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    var simplemde = new SimpleMDE({
+        element: document.getElementById("content"),
+        spellChecker: false,
+        autosave: {
+            enabled: true,
+            uniqueId: "question_content",
+            delay: 1000
+        },
+        status: false
+    });
+</script>
 {% endblock %}
