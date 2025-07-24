@@ -1,7 +1,7 @@
 from flask import Blueprint, url_for, current_app
 
 from werkzeug.utils import redirect
-
+from pybo.models import db
 
 bp = Blueprint('main', __name__, url_prefix='/')
 

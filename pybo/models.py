@@ -1,4 +1,6 @@
 from pybo import db
+from datetime import datetime
+
 
 question_voter = db.Table(
     'question_voter',
@@ -12,6 +14,11 @@ answer_voter = db.Table(
     db.Column('answer_id', db.Integer, db.ForeignKey('answer.id', ondelete='CASCADE'), primary_key=True)
 )
 
+
+class Distance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    distance = db.Column(db.Float, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)

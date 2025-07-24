@@ -7,8 +7,7 @@ from pybo.models import Question, Answer, User
 
 from pybo.forms import QuestionForm
 
-from .. import db
-
+from pybo.models import db
 from datetime import datetime
 
 from pybo.forms import QuestionForm, AnswerForm

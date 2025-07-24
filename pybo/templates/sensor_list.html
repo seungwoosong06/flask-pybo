@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Sensor Data</title>
+    <meta http-equiv="refresh" content="5">
 </head>
 <body>
-$END$
+    <h1>최근 센서 거리 데이터</h1>
+    <table border="1">
+        <tr><th>Distance (cm)</th><th>Time</th></tr>
+        {% for d in data %}
+        <tr><td>{{ d.distance }}</td><td>{{ d.created_at }}</td></tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

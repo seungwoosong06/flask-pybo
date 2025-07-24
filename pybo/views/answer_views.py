@@ -1,14 +1,7 @@
-from datetime import datetime
+from pybo.views.auth_views import login_required
 
-from flask import Blueprint, url_for, request, render_template, g, flash
-
-from werkzeug.utils import redirect
-
-from .auth_views import login_required
-
-from pybo import db
-from ..forms import AnswerForm
-from pybo.models import Question, Answer
+from pybo.models import db
+from flask import Blueprint
 
 bp = Blueprint('answer', __name__, url_prefix='/answer')
 
