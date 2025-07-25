@@ -18,10 +18,10 @@ migrate = Migrate()
 def page_not_found(e):
     return render_template('404.html'), 404
 
+
 def register_sensor_views():
-    from flask import current_app
-    from pybo.views import sensor_views  # 여기서 불러오기
-    current_app.register_blueprint(sensor_views.bp)
+    from pybo.views import sensor_views
+    app.register_blueprint(sensor_views.bp)
 
 def create_app():
     app = Flask(__name__)
@@ -35,14 +35,13 @@ def create_app():
 
     app.register_error_handler(404, page_not_found)
 
-    from pybo.views import main_views, question_views, answer_views, auth_views
+    from pybo.views import main_views, question_views, answer_views, auth_views, sensor_views
+
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
     app.register_blueprint(auth_views.bp)
-
-    # sensor_views 등록
-    register_sensor_views()
+    app.register_blueprint(sensor_views.bp)  # 여기서 바로 등록
 
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
